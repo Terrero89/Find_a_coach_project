@@ -3,7 +3,7 @@
 
     <nav>
         <h1>
-            <router-link to="/"> Find your mentor</router-link>
+            <router-link to="/"> Find a mentor</router-link>
         </h1>
 
         <ul>
