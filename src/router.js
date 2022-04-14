@@ -1,20 +1,29 @@
-import {createRouter} from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+
+// import CoachDetail from './pages/coaches/CoachDetail.vue'
+import CoachesList  from './pages/coaches/CoachesList.vue'
+// import CoachRegistration from './pages/coaches/CoachRegistration.vue'
+// import RequestReceived from './pages/requests/RequestReceived.vue'
+// import ContactCoach from './pages/requests/ContactCoach'
+// import NotFound from './pages/NotFound.vue'
+
+
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        {path: '/', redirect: '/coaches'},
-        {path: '/coaches', component: null, name: 'coahces'},                   // redirect when someone enters to home page.
-        {path: '/coaches/:id', component: null, name: 'coahces_Id', children:[
-            {path: 'contact', component: null, name: 'contact_coach'},          // coaches/c1/contact -- contact specific coach
+  history: createWebHistory(),
 
-        ]},
-        {path: '/register', component: null, name: 'register_coahces'},
-        {path: '/requests', component: null, name: 'requests'},
-        {path: '/:notFound(.*)', component: null, name: 'requests'},        //catch all route, for invalid inputs.
-    ],
-
-
+  routes: [
+    { path: "/", redirect: "/coaches" },
+    { path: "/coaches", component: CoachesList },
+    {
+      path: "/coaches:id",
+      component: null,
+      children: [{ path: "contact", component: null }],
+    },
+    { path: "/register", component: null },
+    { path: "/requests", component: null },
+    { path: "/:notFound(.*)", component: null }, //invalid input route
+  ],
 });
 
-export default router
+export default router;
