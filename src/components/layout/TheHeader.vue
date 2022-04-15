@@ -8,7 +8,7 @@
 
         <ul>
             <li>
-                <router-link to="/coaches"> All Coaches</router-link>
+                <router-link to="/coaches"> Coaches</router-link>
                 <router-link to="/requests"> requests</router-link>
             </li>
         </ul>

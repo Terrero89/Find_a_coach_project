@@ -38,3 +38,7 @@ body {
 PRIMARY COLOR -> #062C30;
 BORDERS      ->  #E2D784;
 TEXT IN DARK  -> #DDDDDD;
+
+// button
+//   background-color: #0e3a3f;
+//   border-color:  #133c41;
