@@ -43,9 +43,12 @@ export default {
     };
   },
   computed: {
-    isCoach() {
+      //this iscoach will return the coach that has an id eauql to the once we are looking for
+    // the getter used is iscoach, we are going to add a place where this condition will be excuted 
+    //will be added in the base button, to only show that buttoon if whoever loges in is not a coach.
+   isCoach() {
       return this.$store.getters['coaches/isCoach'];
-    },
+    },  
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
       return coaches.filter((coach) => {
