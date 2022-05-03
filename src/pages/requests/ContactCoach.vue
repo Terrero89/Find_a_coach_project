@@ -38,7 +38,7 @@ export default {
       this.$store.dispatch('requests/contactCoach', {
         email: this.email,
         message: this.message,
-        coachId: this.$route.params.id    //*TODO: this ensures that the id is taken from vue router and used to go to specific route of coach
+        coachId: this.$route.params.id
       });
       this.$router.replace('/coaches');
 

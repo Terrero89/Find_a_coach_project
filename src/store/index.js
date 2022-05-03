@@ -11,7 +11,7 @@ const store = createStore({
     //user that will use the app currently
     //userID will manage the user ID's that will interact with the App
     return {
-      userId: 'c3'
+      userId: 'c4'
     };
   },
   //this getter will provide the user id state, (if logged in or not etc...)
