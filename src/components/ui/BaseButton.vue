@@ -43,7 +43,6 @@ a {
   margin-right: 0.5rem;
   display: inline-block;
 }
-
 a:hover,
 a:active,
 button:hover,
@@ -51,19 +50,16 @@ button:active {
   background-color: #0e3a3f;
   border-color:  #133c41;
 }
-
 .flat {
   background-color: transparent;
   color: #3a0061;
   border: none;
 }
-
 .outline {
   background-color: transparent;
   border-color: #0e3a3f;
   color: #0e3a3f;
 }
-
 .flat:hover,
 .flat:active,
 .outline:hover,

@@ -1,22 +1,19 @@
 import { createStore } from 'vuex';
 
 import coachesModule from './modules/coaches/index.js';
-import requestsModule from './modules/requests/index'
+import requestsModule from './modules/requests/index.js';
+
 const store = createStore({
   modules: {
     coaches: coachesModule,
-    requests:requestsModule
+    requests: requestsModule
   },
   state() {
-    //user that will use the app currently
-    //userID will manage the user ID's that will interact with the App
     return {
-      userId: 'c4'
+      userId: 'c3'
     };
   },
-  //this getter will provide the user id state, (if logged in or not etc...)
   getters: {
-    
     userId(state) {
       return state.userId;
     }

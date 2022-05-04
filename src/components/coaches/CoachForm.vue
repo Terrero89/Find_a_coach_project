@@ -1,45 +1,40 @@
 <template>
   <form @submit.prevent="submitForm">
     <div class="form-control" :class="{invalid: !firstName.isValid}">
-      <label> First Name</label>
+      <label for="firstname">Firstname</label>
       <input
         type="text"
         id="firstname"
-        name="first-name"
-        v-model.trim="firstName.val " @blur="clearValidation('firstName')"
+        v-model.trim="firstName.val"
+        @blur="clearValidity('firstName')"
       />
+      <p v-if="!firstName.isValid">Firstname must not be empty.</p>
     </div>
-    <p v-if="!firstName.isValid">first name must be not empty</p>
-    
-
     <div class="form-control" :class="{invalid: !lastName.isValid}">
-      <label> Last Name</label>
+      <label for="lastname">Lastname</label>
       <input
         type="text"
         id="lastname"
-        name="last-name"
-        v-model.trim="lastName.val" @blur="clearValidation('lastName')"
+        v-model.trim="lastName.val"
+        @blur="clearValidity('lastName')"
       />
+      <p v-if="!lastName.isValid">Lastname must not be empty.</p>
     </div>
-     <p v-if="!lastName.isValid">Last Name must be not empty</p>
-
     <div class="form-control" :class="{invalid: !description.isValid}">
-      <label> Description</label>
+      <label for="description">Description</label>
       <textarea
-        name="description"
         id="description"
         rows="5"
-        v-model.trim="description.val" @blur="clearValidation('description')"
+        v-model.trim="description.val"
+        @blur="clearValidity('description')"
       ></textarea>
+      <p v-if="!description.isValid">Description must not be empty.</p>
     </div>
-     <p v-if="!description.isValid">Description cannot be empty</p>
-
-    <div class="-form-control" :class="{invalid: !rate.isValid}">
-      <label> Hourly Rate</label>
-      <input type="number" id="rate"  v-model.number="rate.val" @blur="clearValidation('rate')"/>
+    <div class="form-control" :class="{invalid: !rate.isValid}">
+      <label for="rate">Hourly Rate</label>
+      <input type="number" id="rate" v-model.number="rate.val" @blur="clearValidity('rate')" />
+      <p v-if="!rate.isValid">Rate must be greater than 0.</p>
     </div>
-     <p v-if="!rate.isValid">rate must be greater than 0</p>
-
     <div class="form-control" :class="{invalid: !areas.isValid}">
       <h3>Areas of Expertise</h3>
       <div>
@@ -47,31 +42,34 @@
           type="checkbox"
           id="frontend"
           value="frontend"
-          v-model="areas.val" @blur="clearValidation('areas')"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
         />
-        <label for="frontend">Frontend Web development</label>
+        <label for="frontend">Frontend Development</label>
       </div>
-
-
-      
       <div>
         <input
           type="checkbox"
           id="backend"
           value="backend"
-          v-model="areas.val" @blur="clearValidation('areas')"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
         />
-        <label for="backend">Backend Web development</label>
+        <label for="backend">Backend Development</label>
       </div>
-
-
       <div>
-        <input type="checkbox" id="career" value="career" v-model="areas.val" />
+        <input
+          type="checkbox"
+          id="career"
+          value="career"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
+        />
         <label for="career">Career Advisory</label>
       </div>
-      <p v-if="!areas.isValid">At least one expertise must be selected</p>
+      <p v-if="!areas.isValid">At least one expertise must be selected.</p>
     </div>
-    <p v-if="!formIsValid"> Cannot be empty, fix errors</p>
+    <p v-if="!formIsValid">Please fix the above errors and submit again.</p>
     <base-button>Register</base-button>
   </form>
 </template>
@@ -81,7 +79,6 @@ export default {
   emits: ['save-data'],
   data() {
     return {
-      //! we are going to convert info to be an object in which we evaluate the thruthiness or falsiness of the data input, and if it is valid.
       firstName: {
         val: '',
         isValid: true,
@@ -101,48 +98,42 @@ export default {
       areas: {
         val: [],
         isValid: true,
-      }, //! is an array because more than one check can apply to each coach added.
-
-      formIsValid: true, //! is used to validate the data we are going to submit before submitting. form is true as long as once input is false.
+      },
+      formIsValid: true,
     };
   },
-
   methods: {
-    //* will be used to set back the colors of the inputs to normal.
-    //*will contain the name of input as a parameter
-    clearValidation(input){
-      this[input].isValid = true
+    clearValidity(input) {
+      this[input].isValid = true;
     },
     validateForm() {
       this.formIsValid = true;
-
       if (this.firstName.val === '') {
         this.firstName.isValid = false;
         this.formIsValid = false;
       }
-       if (this.lastName.val === '') {
+      if (this.lastName.val === '') {
         this.lastName.isValid = false;
         this.formIsValid = false;
       }
-
-       if (this.description.val === '') {
+      if (this.description.val === '') {
         this.description.isValid = false;
         this.formIsValid = false;
       }
-       if (this.rate.val === null || this.rate.val < 0 ) {
+      if (!this.rate.val || this.rate.val < 0) {
         this.rate.isValid = false;
         this.formIsValid = false;
       }
-
-        if (this.areas.val.length === 0) {
+      if (this.areas.val.length === 0) {
         this.areas.isValid = false;
         this.formIsValid = false;
       }
     },
     submitForm() {
       this.validateForm();
-      if(!this.formIsValid) {
-        return;  //!with only return, we ensure the rest of the code is not excecuted
+
+      if (!this.formIsValid) {
+        return;
       }
 
       const formData = {
@@ -152,11 +143,13 @@ export default {
         rate: this.rate.val,
         areas: this.areas.val,
       };
+
       this.$emit('save-data', formData);
     },
   },
 };
 </script>
+
 <style scoped>
 .form-control {
   margin: 0.5rem 0;

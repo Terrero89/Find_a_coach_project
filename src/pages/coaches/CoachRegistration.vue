@@ -14,12 +14,10 @@ export default {
   components: {
     CoachForm,
   },
-
-  
   methods: {
     saveData(data) {
       this.$store.dispatch('coaches/registerCoach', data);
-      this.$router.replace('/coaches');   //!used to take back to the desired route once completed the dispalch --> 
+      this.$router.replace('/coaches');
     }
   }
 };
