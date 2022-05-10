@@ -24,16 +24,19 @@ export default {
   display: inline-block;
   margin-right: 0.5rem;
 }
+
 .frontend {
-  background-color: #063d8f;
+  background-color: #3d008d;
   color: white;
 }
+
 .backend {
-  background-color: #420101;
+  background-color: #71008d;
   color: white;
 }
+
 .career {
-  background-color: #7f8d00;
+  background-color: #8d006e;
   color: white;
 }
 </style>

@@ -4,8 +4,9 @@ export default {
       userEmail: payload.email,
       message: payload.message
     };
+   
     const response = await fetch(`https://find-mentor-project-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`, {
-      method: 'POST',               
+      method: 'POST',
       body: JSON.stringify(newRequest)
     });
 
@@ -17,14 +18,13 @@ export default {
     }
 
     newRequest.id = responseData.name;
-    newRequest.coachId = payload.coachId;   //* for local data not directly in firebase.
+    newRequest.coachId = payload.coachId;
 
     context.commit('addRequest', newRequest);
   },
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
-    
-    const response = await fetch(`https://find-mentor-project-default-rtdb.firebaseio.com/${coachId}.json`);
+    const response = await fetch(`https://find-mentor-project-default-rtdb.firebaseio.com/requests/${coachId}.json`);
     const responseData = await response.json();
 
     if (!response.ok) {

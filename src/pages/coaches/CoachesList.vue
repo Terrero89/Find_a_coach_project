@@ -8,7 +8,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+        <base-button mode="outline" @click="loadCoaches(true)">Refresh</base-button>
         <base-button v-if="!isCoach && !isLoading" link to="/register">Register as Coach</base-button>
       </div>
       <div v-if="isLoading">
@@ -80,10 +80,12 @@ export default {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
-    async loadCoaches() {
+    //* load coaches will be false a default so, after a minute or when force refresh is pressed we load coaches.
+    async loadCoaches(refresh = false) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('coaches/loadCoaches');
+        //* this will try to refresh no matter if its been less than a minute ago,.
+        await this.$store.dispatch('coaches/loadCoaches', {forceRefresh: refresh}); //? refresh is the part provided by load coaches within parenthesis.
       } catch (error) {
         this.error = error.message || 'Something went wrong!';
       }

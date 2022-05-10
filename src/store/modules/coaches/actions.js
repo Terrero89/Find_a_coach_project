@@ -9,8 +9,9 @@ export default {
       areas: data.areas
     };
 
+
     const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/coaches/${userId}.json`,
+      `https://find-mentor-project-default-rtdb.firebaseio.com/coaches/${userId}.json`,
       {
         method: 'PUT',
         body: JSON.stringify(coachData)
@@ -19,7 +20,8 @@ export default {
 
     // const responseData = await response.json();
 
-    if (!response.ok) {
+    //*TODO: here we determine if is 60 secs or longer, if it is then we update
+    if (!response.ok) {     //? if response is not longer than 60 secs. we return, and skip the step and wll no send request..
       // error ...
     }
 
@@ -28,7 +30,13 @@ export default {
       id: userId
     });
   },
-  async loadCoaches(context) {
+  //*TODO: we add payload to  be able to refresh forcing the non refresh to do it .
+  //*TODO: if does not have a payload.forceRefresh, abd should update, then we skip load coaches, the the above commite register coach.
+  async loadCoaches(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
+   
     const response = await fetch(
       `https://find-mentor-project-default-rtdb.firebaseio.com/coaches.json`
     );
@@ -54,5 +62,7 @@ export default {
     }
 
     context.commit('setCoaches', coaches);
+    //*mutation that will hold the time stamp 
+    context.commit('setFetchTimestamp');
   }
 };

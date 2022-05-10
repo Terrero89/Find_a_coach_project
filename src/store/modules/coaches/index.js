@@ -6,6 +6,9 @@ export default {
   namespaced: true,
   state() {
     return {
+      //* to fetch users and no reload everytime we add a coach.
+      //* we will add a timestamp
+      lastFetch: null,
       coaches: [
         {
           id: 'c1',
