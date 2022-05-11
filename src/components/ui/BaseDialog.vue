@@ -1,6 +1,9 @@
 <template>
-  <teleport to="body">
+<!-- to show on top of html docu  -->
+  <teleport to="body"> 
     <div v-if="show" @click="tryClose" class="backdrop"></div>
+    <!-- give  name to trnasition -->
+    <transition name="dialog" >
     <dialog open v-if="show">
       <header>
         <slot name="header">
@@ -16,6 +19,7 @@
         </slot>
       </menu>
     </dialog>
+    </transition>
   </teleport>
 </template>
 
@@ -94,6 +98,32 @@ menu {
   display: flex;
   justify-content: flex-end;
   margin: 0;
+}
+
+
+/*we add the enter and leave with opacity 0,  */
+/* this means is invisible at the beggining. */
+.dialog-enter-from,
+.dialog-leave-to{
+opacity: 0;
+transform: scale(0.8);
+}
+
+/*we add the actives to make the motion elements when active.  */
+
+.dialog-enter-active{
+  transition:all 0.3s ease-out
+}
+.dialog-leave-active{
+  transition:all 0.3s ease-in
+}
+
+/*we add the enter and leave with opacity 1,  */
+/* this means is not going to be invisible  */
+.dialog-enter-to,
+.dialog-leave-from{
+  opacity: 1;
+transform: scale(1);
 }
 
 @media (min-width: 768px) {
