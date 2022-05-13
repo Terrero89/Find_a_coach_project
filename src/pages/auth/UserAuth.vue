@@ -79,6 +79,10 @@ export default {
         } else {
           await this.$store.dispatch('signup', actionPayload);
         }
+        //*TODO: It will take me to the registration once logged in, and once logged in then to coaches
+        const redirectUrl = ('/coaches') //? we use the this.query.redirect to be able to find a route or the other 
+     
+        this.$router.replace(redirectUrl) //? we redirect to coaches once we are signed in or out.
       } catch (err) {
         this.error = err.message || 'Failed to authenticate, try later.';
       }

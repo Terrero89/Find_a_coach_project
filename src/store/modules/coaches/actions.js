@@ -9,9 +9,12 @@ export default {
       areas: data.areas
     };
 
+    //*this is the tokem from the getters we are using in a variable
+    const token = context.rootGetters.token
 
+//*TODO: we add ?auth=[token code.]
     const response = await fetch(
-      `https://find-mentor-project-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+      `https://find-mentor-project-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token,
       {
         method: 'PUT',
         body: JSON.stringify(coachData)
@@ -21,6 +24,7 @@ export default {
     // const responseData = await response.json();
 
     //*TODO: here we determine if is 60 secs or longer, if it is then we update
+    //*TODO: We now are able to go the exact id that is sending the token
     if (!response.ok) {     //? if response is not longer than 60 secs. we return, and skip the step and wll no send request..
       // error ...
     }

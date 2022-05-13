@@ -8,14 +8,38 @@
         <li>
           <router-link to="/coaches">All Coaches</router-link>
         </li>
-        <li>
+        <!-- we are going to show this button if we are logged in. else, no. -->
+        <li v-if="isLoggedIn">
           <router-link to="/requests">Requests</router-link>
+        </li>
+        <li v-else>
+          <router-link to="/auth">Login </router-link>
+        </li>
+<!-- this shows when user log in, then when clicked, logs out the user -->
+        <li v-if="isLoggedIn">
+          <base-button @click="logout" >Logout</base-button>
         </li>
       </ul>
     </nav>
   </header>
 </template>
 
+<script>
+export default {
+  computed:{
+    isLoggedIn(){
+       return this.$store.getters.isAuthenticated
+    }
+  },
+
+  methods:{
+    logout(){
+      this.$store.dispatch('logout');
+      this.$router.replace('/auth')
+    }
+  }
+}
+</script>
 <style scoped>
 header {
   width: 100%;
